@@ -220,7 +220,7 @@ void AllocateSeats(int socketFD, struct Bus *bus)
 
     if (!CheckSeat(seatNumber, bus))
     {
-        send(socketFD, "Seats is Already Allocated", strlen("Seats is Alread Allocated") + 1, 0);
+        send(socketFD, "Seats is Already Allocated", strlen("Seats is Already Allocated") + 3, 0);
         return;
     }
     bus->seats[seatNumber - 1] = gender;

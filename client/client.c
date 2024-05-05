@@ -32,7 +32,7 @@ void getBusNames(int socketFD)
         }
 
         printf("%s\n", buffer);
-        break;
+        // break;
     }
 }
 
