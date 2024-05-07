@@ -153,31 +153,32 @@ void init()
     buses = InilizeBusArray(10);
 }
 
-int *getDestination(int socketFD)
-{
-    char buffer[100];
+int *getDestination(int socketFD) {
+    char buffer[101]; // Increased by 1 to leave space for null terminator
     int *arr = malloc(10 * sizeof(int));
-    for (int i = 0; i < 10; i++)
-    {
+    for (int i = 0; i < 10; i++) {
         arr[i] = -1;
     }
     printf("Hello\n");
-    int recvBytes = recv(socketFD, buffer, 100, 0) <= 0 ? printf("Error\n") : printf("Recv\n");
-    buffer[recvBytes] = '\0';
-    printf("Hello %s\n", buffer);
+    int recvBytes = recv(socketFD, buffer, 100, 0);
+    if (recvBytes <= 0) {
+        printf("Error receiving data\n");
+        return arr; // Return arr without processing if recv fails
+    }
+    buffer[recvBytes] = '\0'; // Null-terminate the received data
+    printf("Received data: %s\n", buffer);
     int index = 0;
-    for (int i = 0; i < 10; i++)
-    {
-        if (strcmp(buses[i]->destination, buffer) == 0)
-        {
+    for (int i = 0; i < 10; i++) {
+        if (buses[i] != NULL && strcmp(buses[i]->destination, buffer) == 0) {
             arr[index] = i;
-            printf("%s %s\n", buses[i]->destination, buffer);
+            printf("Match found: %s\n", buses[i]->destination);
             index++;
-            printf("Dest is Find\n");
+            printf("Destination found\n");
         }
     }
     return arr;
 }
+
 
 struct Bus *recvNameSendSeats(int socketFD)
 {

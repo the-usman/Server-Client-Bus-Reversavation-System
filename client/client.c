@@ -77,8 +77,7 @@ int main()
     char buffer[100];
     printf("Enter the destination\n");
     scanf("%s", buffer);
-    printf("Hello, world!\n");
-    send(socketFD, buffer, strlen(buffer) + 1, 0);
+    send(socketFD, buffer, sizeof(buffer), 0);
     getBusNames(socketFD);
     memset(buffer, 0, sizeof(buffer));
 
