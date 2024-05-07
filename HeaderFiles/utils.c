@@ -154,7 +154,7 @@ void init()
 }
 
 int *getDestination(int socketFD) {
-    char buffer[101]; // Increased by 1 to leave space for null terminator
+    char buffer[101]; 
     int *arr = malloc(10 * sizeof(int));
     for (int i = 0; i < 10; i++) {
         arr[i] = -1;
@@ -163,9 +163,9 @@ int *getDestination(int socketFD) {
     int recvBytes = recv(socketFD, buffer, 100, 0);
     if (recvBytes <= 0) {
         printf("Error receiving data\n");
-        return arr; // Return arr without processing if recv fails
+        return arr; 
     }
-    buffer[recvBytes] = '\0'; // Null-terminate the received data
+    buffer[recvBytes] = '\0';
     printf("Received data: %s\n", buffer);
     int index = 0;
     for (int i = 0; i < 10; i++) {
